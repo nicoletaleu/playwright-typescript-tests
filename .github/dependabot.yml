@@ -1,0 +1,13 @@
+# Pinned versions stay reproducible but stop updating themselves. This opens
+# one pull request per update, so each upgrade arrives on its own and CI runs
+# against it before it reaches main.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly

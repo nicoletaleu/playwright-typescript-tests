@@ -1,0 +1,12 @@
+node_modules/
+
+# Everything Playwright writes on a run. CI uploads these as artifacts instead.
+test-results/
+playwright-report/
+blob-report/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

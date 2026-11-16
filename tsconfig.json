@@ -1,0 +1,16 @@
+{
+  // Playwright runs .ts files itself, so this file is not a build step. It is
+  // here for `npm run typecheck` and for the editor: the type errors it finds
+  // are mistakes a Robot run would only have found by failing.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["tests/**/*.ts", "site/**/*.ts", "playwright.config.ts"]
+}

@@ -1,0 +1,57 @@
+# Runs the whole suite on every push and pull request. It can: the site is
+# served from this repo on a free port, so nothing here touches the internet
+# and a red run always means the tests or the pages, never somebody else's
+# server. That is the property the Robot repo spent Days 28-30 earning.
+name: playwright
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      # Versions are pinned exactly in package.json. There is no lockfile yet,
+      # so transitive dependencies can still move - dependabot.yml watches the
+      # direct ones.
+      - name: Install dependencies
+        run: npm install
+
+      # Types first: a type error fails in seconds here, instead of as a
+      # confusing runtime error halfway through the browser tests.
+      - name: Type-check
+        run: npm run typecheck
+
+      # Only Chromium, because it is the only project in playwright.config.ts.
+      # --with-deps installs the Linux libraries the browser needs.
+      - name: Install the Chromium browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run the tests
+        run: npx playwright test
+        env:
+          CI: "true"
+
+      # always(): a red run is when the report and the traces get opened.
+      - name: Upload the HTML report and traces
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
