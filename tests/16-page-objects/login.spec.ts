@@ -7,8 +7,8 @@
  * row is still its own test with its own name in the report, which is the
  * property that mattered - a failing row does not hide the ones after it.
  */
-import { expect, test } from './fixtures';
-import { LoginPage, VALID_PASSWORD, VALID_USER } from './pages/LoginPage';
+import { expect, test } from '../../fixtures/site';
+import { LoginPage, VALID_PASSWORD, VALID_USER } from '../../pages/LoginPage';
 
 test.describe('login', () => {
   let loginPage: LoginPage;
