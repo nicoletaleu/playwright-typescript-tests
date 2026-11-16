@@ -43,7 +43,10 @@ test.describe('text input', () => {
 
     // pressSequentially sends real key events - use it when the page reacts
     // to typing (autocomplete, character counters, input masks).
-    await search.clear();
+    // A reload resets the counter. clear() would not: it empties the field
+    // with a key press of its own, which the first CI run of this test caught
+    // (the counter read 5, not 4).
+    await page.reload();
     await search.pressSequentially('rent');
     await expect(keystrokes).toHaveText('4');
   });

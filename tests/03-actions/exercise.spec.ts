@@ -17,7 +17,9 @@ test.fixme('exercise 1: a whole form, start to finish', async ({ page }) => {
 
 test.fixme('exercise 2: count the keystrokes', async ({ page }) => {
   // Type "salary" into Search with pressSequentially and assert the counter
-  // shows 6. Then press Backspace twice with press() and assert it shows 8.
+  // shows 6. Then press Backspace twice with press() and predict the number
+  // before you run it. (Lesson 03 found out the hard way that clear() also
+  // counts as a key press.)
   void page;
 });
 
