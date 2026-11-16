@@ -13,7 +13,7 @@
  * why the confirm test asserts both answers: a test that only checked "Ok"
  * would pass for the wrong reason the day the handler disappeared.
  */
-import { expect, test } from './fixtures';
+import { expect, test } from '../../fixtures/site';
 
 test.describe('JavaScript dialogs', () => {
   test.beforeEach(async ({ page }) => {

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Actions practice</title>
+  <style>
+    #tooltip { display: none; }
+    #hover-target:hover + #tooltip { display: inline; }
+  </style>
+</head>
+<body>
+<!--FLASH-->
+<!-- Lesson 03. Each control writes what happened into #log, so a test can
+     assert on the effect of an action instead of trusting that it happened. -->
+<h1>Actions practice</h1>
+
+<section>
+  <h2>Text</h2>
+  <label for="name">Full name</label>
+  <input id="name" type="text">
+  <label for="search">Search</label>
+  <input id="search" type="search" placeholder="Search transactions">
+  <label for="comment">Comment</label>
+  <textarea id="comment"></textarea>
+  <p>Characters typed in search: <span id="keystrokes">0</span></p>
+</section>
+
+<section>
+  <h2>Choices</h2>
+  <label><input type="checkbox" id="terms"> Accept terms</label>
+  <label><input type="checkbox" id="newsletter" checked> Send newsletter</label>
+
+  <fieldset>
+    <legend>Transfer type</legend>
+    <label><input type="radio" name="type" value="sepa"> SEPA</label>
+    <label><input type="radio" name="type" value="instant"> Instant</label>
+    <label><input type="radio" name="type" value="swift"> SWIFT</label>
+  </fieldset>
+</section>
+
+<section>
+  <h2>Mouse</h2>
+  <button type="button" id="single">Click me</button>
+  <button type="button" id="double">Double-click me</button>
+  <button type="button" id="context">Right-click me</button>
+  <button type="button" id="modifier">Shift-click me</button>
+  <span id="hover-target">Hover over me</span>
+  <span id="tooltip" role="tooltip">Helpful tooltip</span>
+</section>
+
+<p id="log" aria-live="polite"></p>
+
+<script>
+  var log = document.getElementById('log');
+  function say(text) { log.textContent = text; }
+
+  document.getElementById('single').addEventListener('click', function () { say('clicked'); });
+  document.getElementById('double').addEventListener('dblclick', function () { say('double-clicked'); });
+  document.getElementById('context').addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    say('right-clicked');
+  });
+  document.getElementById('modifier').addEventListener('click', function (e) {
+    say(e.shiftKey ? 'shift-clicked' : 'clicked without shift');
+  });
+
+  // Counts real key events, which is what tells fill() and
+  // pressSequentially() apart: fill sets the value in one go.
+  var count = 0;
+  document.getElementById('search').addEventListener('keydown', function () {
+    count += 1;
+    document.getElementById('keystrokes').textContent = String(count);
+  });
+  document.getElementById('search').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { say('searched for: ' + e.target.value); }
+  });
+
+  document.querySelectorAll('input[name=type]').forEach(function (radio) {
+    radio.addEventListener('change', function () { say('type: ' + radio.value); });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      document.getElementById('search').focus();
+      say('shortcut: focus search');
+    }
+  });
+</script>
+</body>
+</html>

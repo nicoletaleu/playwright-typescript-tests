@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Locators practice</title>
+</head>
+<body>
+<!--FLASH-->
+<!-- Lesson 02. Every element here exists so one kind of locator has
+     something to find. Some things are deliberately duplicated (two
+     "Delete" buttons, two "Save" texts), because a locator that only ever
+     meets unique elements never learns how to be specific. -->
+<h1>Locators practice</h1>
+
+<nav aria-label="Main">
+  <a href="/">Home</a>
+  <a href="/login">Login</a>
+  <a href="/actions">Actions</a>
+</nav>
+
+<section id="transfer-form">
+  <h2>Transfer money</h2>
+  <form>
+    <label for="from-account">From account</label>
+    <select id="from-account" name="from">
+      <option value="current">Current account</option>
+      <option value="savings">Savings account</option>
+    </select>
+
+    <label for="amount">Amount</label>
+    <input id="amount" name="amount" type="number" placeholder="Enter the amount">
+
+    <label for="reference">Reference</label>
+    <input id="reference" name="reference" type="text" placeholder="What is it for?">
+
+    <label><input type="checkbox" name="save-beneficiary"> Save beneficiary for future</label>
+
+    <button type="button" class="btn btn-primary" data-testid="transfer-submit">Transfer</button>
+    <button type="button" class="btn" disabled>Schedule for later</button>
+  </form>
+  <p class="error-msg" hidden>Amount is required</p>
+</section>
+
+<section id="beneficiaries">
+  <h2>Beneficiaries</h2>
+  <table id="beneficiary-table">
+    <thead>
+      <tr><th>Name</th><th>IBAN</th><th>Type</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      <tr data-testid="row-ana">
+        <td>Ana Pop</td><td>RO49AAAA1B31007593840000</td><td>SEPA</td>
+        <td><button type="button">Delete</button></td>
+      </tr>
+      <tr data-testid="row-ion">
+        <td>Ion Rusu</td><td>RO09BCYP0000001234567890</td><td>Instant</td>
+        <td><button type="button">Delete</button></td>
+      </tr>
+      <tr data-testid="row-maria">
+        <td>Maria Lungu</td><td>RO66BACX0000001234567890</td><td>SEPA</td>
+        <td><button type="button" disabled>Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="settings">
+  <h2>Settings</h2>
+  <ul class="menu">
+    <li class="menu-item">Profile</li>
+    <li class="menu-item active">Security</li>
+    <li class="menu-item">Notifications</li>
+  </ul>
+  <p>Changes are saved automatically. <span>Save</span> is only needed offline.</p>
+  <button type="button">Save</button>
+  <img src="data:," alt="Bank logo">
+</section>
+</body>
+</html>

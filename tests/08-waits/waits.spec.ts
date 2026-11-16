@@ -14,7 +14,7 @@
  * ever is, the pages have become too fast and every test below passes
  * without waiting for anything.
  */
-import { expect, test } from './fixtures';
+import { expect, test } from '../../fixtures/site';
 
 test.describe('waits', () => {
   test('the waits in this suite are load-bearing', async ({ page }) => {
