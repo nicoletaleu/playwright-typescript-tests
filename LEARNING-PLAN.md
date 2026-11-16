@@ -10,9 +10,9 @@ API testing and cross-browser runs.
 
 ## Basics
 
-- [ ] **01 - Setup and the first test** - project structure, the config, running and reading the report
-- [ ] **02 - Locators** - built-in locators and their priority, CSS, XPath and its axes, strict mode, `filter`
-- [ ] **03 - Actions** - `fill` vs `pressSequentially`, checkboxes, radio, mouse, keyboard, why not `force`
+- [x] **01 - Setup and the first test** - project structure, the config, running and reading the report
+- [x] **02 - Locators** - built-in locators and their priority, CSS, XPath and its axes, strict mode, `filter`
+- [x] **03 - Actions** - `fill` vs `pressSequentially`, checkboxes, radio, mouse, keyboard, why not `force`
 - [ ] **04 - Dropdowns and uploads** - native `<select>`, custom and searchable dropdowns, `setInputFiles`
 - [ ] **05 - Tables, pagination, date pickers** - reading text and attributes, finding a row, every page of a table, three kinds of date picker
 

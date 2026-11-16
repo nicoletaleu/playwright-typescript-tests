@@ -1,32 +1,32 @@
 /**
- * Lesson 01 - exercises.
+ * Lesson 01 - exercises, solved.
  *
- * Each test below is marked test.fixme(): Playwright reports it as skipped and
- * CI stays green. To do an exercise:
- *   1. change `test.fixme(` to `test(`;
- *   2. write the body;
- *   3. run `npx playwright test tests/01-first-test` until it passes.
- *
- * A lesson counts as done when all of its exercises run and pass.
+ * To redo one from scratch, change its `test(` back to `test.fixme(` and
+ * delete the body.
  */
 import { expect, test } from '../../fixtures/site';
 
-test.fixme('exercise 1: the login page has the right heading', async ({ page }) => {
-  // Open '/login' and assert that a heading named "Login Page" is visible.
-  // Hint: page.getByRole('heading', { name: ... })
-  void page;
-  void expect;
+test('exercise 1: the login page has the right heading', async ({ page }) => {
+  await page.goto('/login');
+  await expect(page.getByRole('heading', { name: 'Login Page' })).toBeVisible();
 });
 
-test.fixme('exercise 2: the home page lists six examples', async ({ page }) => {
-  // Open '/' and assert that the list under "Available Examples" has 6 links.
-  // Hint: expect(locator).toHaveCount(n)
-  void page;
+test('exercise 2: the home page lists six examples', async ({ page }) => {
+  await page.goto('/');
+  // Scoped to the list, so the count does not depend on links elsewhere on
+  // the page (a footer or a nav added later would not change it).
+  await expect(page.getByRole('list').getByRole('link')).toHaveCount(6);
 });
 
-test.fixme('exercise 3: break a test on purpose and read the report', async ({ page }) => {
-  // Write a test that expects the wrong title, run it, then run
-  // `npx playwright show-report` and find the failure in the report.
-  // Write in this comment what the report told you, then fix the test.
-  void page;
+test('exercise 3: break a test on purpose and read the report', async ({ page }) => {
+  // Broken version: expect(page).toHaveTitle('Wrong').
+  // What the report said:
+  //   Error: expect(page).toHaveTitle(expected) failed
+  //   Expected: "Wrong"
+  //   Received: "The Internet"
+  // plus a screenshot of the page at the moment of failure
+  // (screenshot: 'only-on-failure' in playwright.config.ts) and the line of
+  // the test that failed. Expected / Received is the part to read first.
+  await page.goto('/');
+  await expect(page).toHaveTitle('The Internet');
 });
