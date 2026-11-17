@@ -7,6 +7,12 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
+    ignore:
+      # @types/node describes the Node API, so its major has to match the Node
+      # version CI runs on (22 in playwright.yml). A newer major would let the
+      # type-check accept APIs that do not exist at runtime.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
