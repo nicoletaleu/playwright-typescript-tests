@@ -27,7 +27,7 @@ one page is in [`CHEATSHEET.md`](CHEATSHEET.md).
 | 01 | [Setup and the first test](tests/01-first-test/) | done |
 | 02 | [Locators: built-in, CSS, XPath and axes](tests/02-locators/) | done |
 | 03 | [Actions: text, checkboxes, radio, mouse, keyboard](tests/03-actions/) | done |
-| 04 | Dropdowns and uploads | planned |
+| 04 | [Dropdowns and uploads](tests/04-dropdowns-uploads/) | examples + exercises |
 | 05 | Tables, pagination, date pickers | planned |
 | 06 | [Dialogs](tests/06-dialogs/) | examples (from the Robot port) |
 | 07 | Frames, tabs, popups, contexts | planned |

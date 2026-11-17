@@ -66,6 +66,28 @@ await locator.focus();
 // { force: true } skips actionability checks - avoid
 ```
 
+## Dropdowns and uploads (lesson 04)
+
+```ts
+// native <select>
+await select.selectOption('eur');                     // value or label
+await select.selectOption({ label: 'Euro (EUR)' });   // also { value }, { index }
+await select.selectOption(['email', 'sms']);          // multiple; [] clears
+select.locator('option:checked')                      // the selected option
+
+// custom / searchable: like a user, and scope options to their listbox
+await page.getByRole('button', { name: 'From account' }).click();
+await page.getByRole('listbox', { name: 'Accounts' }).getByRole('option', { name: 'Savings account' }).click();
+
+// uploads
+await input.setInputFiles(path.join(__dirname, 'files', 'statement.csv'));
+await input.setInputFiles({ name: 'a.csv', mimeType: 'text/csv', buffer: Buffer.from('...') });
+await input.setInputFiles([]);                        // remove all
+const chooser = page.waitForEvent('filechooser');     // before the click
+await button.click();
+await (await chooser).setFiles(path);
+```
+
 ## Assertions used so far
 
 ```ts
@@ -73,5 +95,6 @@ await expect(locator).toBeVisible() / .toBeHidden() / .toBeAttached()
 await expect(locator).toBeEnabled() / .toBeDisabled() / .toBeChecked() / .toBeFocused()
 await expect(locator).toHaveText('x') / .toHaveText(['a', 'b']) / .toContainText('x')
 await expect(locator).toHaveValue('x') / .toHaveAttribute('href', '/x') / .toHaveCount(3)
+await expect(select).toHaveValues(['email', 'sms'])
 await expect(locator).not.toBeChecked()
 ```
