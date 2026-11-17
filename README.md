@@ -46,8 +46,8 @@ one page is in [`CHEATSHEET.md`](CHEATSHEET.md).
 
 ## Built with
 
-- **Playwright Test** 1.64.1, Chromium (cross-browser comes in lesson 19)
-- **TypeScript** 5.9.3, strict mode, type-checked in CI
+- **Playwright Test** 1.65.1, Chromium (cross-browser comes in lesson 19)
+- **TypeScript** 7.0.2, strict mode, type-checked in CI
 - **Node.js** 22, `node:http` for the local site - no web framework
 - **GitHub Actions** for CI, **dependabot** for updates
 
