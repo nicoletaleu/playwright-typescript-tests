@@ -24,11 +24,11 @@ jobs:
         with:
           node-version: "22"
 
-      # Versions are pinned exactly in package.json. There is no lockfile yet,
-      # so transitive dependencies can still move - dependabot.yml watches the
-      # direct ones.
+      # npm ci installs exactly what package-lock.json records, transitive
+      # dependencies included, and fails if the lockfile and package.json
+      # disagree. Dependabot updates both files together.
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       # Types first: a type error fails in seconds here, instead of as a
       # confusing runtime error halfway through the browser tests.
