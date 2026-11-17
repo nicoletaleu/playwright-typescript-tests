@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Upload practice</title>
+</head>
+<body>
+<!--FLASH-->
+<!-- Lesson 04. The files are read in the browser and never sent to the
+     server: what is under test is the <input type="file">, and the page
+     prints what it received so a test can assert on it. -->
+<h1>Upload practice</h1>
+
+<section>
+  <h2>One file</h2>
+  <!-- accept only filters the operating system's file dialog. setInputFiles
+       does not open that dialog, so the check that counts is the page's own. -->
+  <label for="statement">Bank statement</label>
+  <input type="file" id="statement" accept=".csv,.pdf">
+  <p id="statement-result"></p>
+  <p id="statement-error" role="alert"></p>
+</section>
+
+<section>
+  <h2>Several files</h2>
+  <label for="receipts">Receipts</label>
+  <input type="file" id="receipts" multiple>
+  <ul id="receipt-list" aria-label="Files received"></ul>
+</section>
+
+<section>
+  <h2>A hidden input behind a button</h2>
+  <!-- The common styled-upload pattern: the real input is hidden and a button
+       opens it. -->
+  <input type="file" id="photo" accept="image/*" hidden>
+  <button type="button" id="photo-button">Upload a profile photo</button>
+  <p id="photo-result"></p>
+</section>
+
+<script>
+  // --- one file --------------------------------------------------------
+  var statement = document.getElementById('statement');
+  var statementResult = document.getElementById('statement-result');
+  var statementError = document.getElementById('statement-error');
+
+  statement.addEventListener('change', function () {
+    statementResult.textContent = '';
+    statementError.textContent = '';
+    var file = statement.files[0];
+    if (!file) { statementResult.textContent = 'No file chosen'; return; }
+    if (!/\.(csv|pdf)$/i.test(file.name)) {
+      statementError.textContent = file.name + ': only .csv and .pdf files are accepted';
+      return;
+    }
+    if (/\.pdf$/i.test(file.name)) {
+      statementResult.textContent = file.name + ': received';
+      return;
+    }
+    // Rows, not bytes: a byte count would change with the line endings git
+    // checks the file out with, rows do not.
+    file.text().then(function (text) {
+      var rows = text.trim().split(/\r?\n/).length - 1;
+      statementResult.textContent = file.name + ': ' + rows + (rows === 1 ? ' transaction' : ' transactions');
+    });
+  });
+
+  // --- several files ---------------------------------------------------
+  var receipts = document.getElementById('receipts');
+  var receiptList = document.getElementById('receipt-list');
+  receipts.addEventListener('change', function () {
+    receiptList.innerHTML = '';
+    Array.prototype.forEach.call(receipts.files, function (file) {
+      var li = document.createElement('li');
+      li.textContent = file.name;
+      receiptList.appendChild(li);
+    });
+  });
+
+  // --- hidden input ----------------------------------------------------
+  var photo = document.getElementById('photo');
+  document.getElementById('photo-button').addEventListener('click', function () { photo.click(); });
+  photo.addEventListener('change', function () {
+    var file = photo.files[0];
+    document.getElementById('photo-result').textContent = file ? 'photo: ' + file.name : '';
+  });
+</script>
+</body>
+</html>
